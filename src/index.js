@@ -66,6 +66,7 @@ function updatedCity(event) {
             "h:mm:ss [<small>]A[</small>]"
           )}</div>
         </div>
+        <a href="index.html">Back to Homepage</a>
     `;
   }
 
