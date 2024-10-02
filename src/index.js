@@ -44,13 +44,17 @@ function displayTime() {
     );
   }
 }
+let cityInterval;
 
-function UpdateCity(event) {
+function updatedCity(event) {
   let cityTimezone = event.target.value;
-  let cityTime = moment().tz(cityTimezone);
-  let cityName = cityTimezone.replace("_", " ").split("/")[1];
-  let citiesElement = document.querySelector("#cities");
-  citiesElement.innerHTML = `   <div class="city">
+  clearInterval(cityInterval);
+
+  function UpdateCity() {
+    let cityTime = moment().tz(cityTimezone);
+    let cityName = cityTimezone.replace("_", " ").split("/")[1];
+    let citiesElement = document.querySelector("#cities");
+    citiesElement.innerHTML = `   <div class="city">
           <div>
             <h2>${cityName}</h2>
             <div class="date">${cityTime.format("MMMM Do, YYYY")}</div>
@@ -60,8 +64,12 @@ function UpdateCity(event) {
           )}</div>
         </div>
     `;
+  }
+
+  cityInterval = setInterval(UpdateCity, 1000);
 }
+
 displayTime();
 setInterval(displayTime, 1000);
 let selectCityElement = document.querySelector("#city");
-selectCityElement.addEventListener("change", UpdateCity);
+selectCityElement.addEventListener("change", updatedCity);
